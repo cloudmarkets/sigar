@@ -19,7 +19,7 @@
 require 'mkmf'
 require 'rbconfig'
 
-extension_name = 'sigar'
+extension_name = 'cloudmarkets-sigar'
 
 print 'Ruby platform=' + RUBY_PLATFORM + "\n"
 

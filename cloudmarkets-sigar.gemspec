@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'cloudscale/sigar/version'
+require 'cloudmarkets/sigar/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "cloudscale-sigar"
-  spec.version       = Cloudscale::Sigar::VERSION
+  spec.name          = "cloudmarkets-sigar"
+  spec.version       = Cloudmarkets::Sigar::VERSION
   spec.authors       = ["Doug MacEachern", "Jörg Gottschlich"]
   spec.email         = ["sigar-users@hyperic.org","jgottschlich@cloudscale.de"]
   spec.summary       = %q{System Information Gatherer And Reporter (Custom Ruby Gem bundle)}
@@ -14,8 +14,8 @@ Gem::Specification.new do |spec|
   spec.license       = "Apache 2.0"
 
   spec.files         = 
-    %w(LICENSE NOTICE README Rakefile version.properties) +
-    %w(bindings/SigarWrapper.pm bindings/SigarBuild.pm) +
+    %w(LICENSE NOTICE README.md Rakefile) +
+    %w(ext/cloudmarkets/sigar/bindings/SigarWrapper.pm ext/cloudmarkets/sigar/bindings/SigarBuild.pm) +
     `git ls-files -- ext/cloudmarkets/sigar/bindings/ruby/*`.split("\n") +
     Dir.glob("ext/cloudmarkets/sigar/include/*.h") +
     Dir.glob("ext/cloudmarkets/sigar/src/**/*.[ch]") +

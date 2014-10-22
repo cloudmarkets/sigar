@@ -4,6 +4,8 @@ require 'rake/testtask'
 
 task :default => :test
 
+MAKE = (/mswin/ =~ RUBY_PLATFORM) ? 'nmake' : 'make'
+
 def in_ext()
   ext = 'ext/cloudmarkets/sigar/bindings/ruby'
   Dir.chdir(ext) if File.directory? ext
