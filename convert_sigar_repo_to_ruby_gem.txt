@@ -14,5 +14,5 @@ This logs the conversion steps necessary to create a bundler gem from the latest
 * Adjust directory structure according to http://guides.rubygems.org/gems-with-extensions/
   - include/, src/ ... sigar/* => ext/cloudscale/sigar
   - bindings/ruby/* => lib/cloudmarkets/sigar
-  - extconf.rb => ext/cloudmarkets/sigar
+  - delete other language bindings
   
