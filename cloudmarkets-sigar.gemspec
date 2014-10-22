@@ -16,14 +16,14 @@ Gem::Specification.new do |spec|
   spec.files         = 
     %w(LICENSE NOTICE README Rakefile version.properties) +
     %w(bindings/SigarWrapper.pm bindings/SigarBuild.pm) +
-    `git ls-files -- bindings/ruby/*`.split("\n") +
-    Dir.glob("include/*.h") +
-    Dir.glob("src/**/*.[ch]") +
-    Dir.glob("src/**/*.in")
+    `git ls-files -- ext/cloudmarkets/sigar/bindings/ruby/*`.split("\n") +
+    Dir.glob("ext/cloudmarkets/sigar/include/*.h") +
+    Dir.glob("ext/cloudmarkets/sigar/src/**/*.[ch]") +
+    Dir.glob("ext/cloudmarkets/sigar/src/**/*.in")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
-  spec.extensions    = 'ext/cloudmarkets/sigar/extconf.rb'
+  spec.extensions    = 'ext/cloudmarkets/sigar/bindings/ruby/extconf.rb'  # not standard path, but left for compatibility reasons
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
