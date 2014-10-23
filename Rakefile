@@ -9,7 +9,7 @@ task :default => :test
 MAKE = (/mswin/ =~ RUBY_PLATFORM) ? 'nmake' : 'make'
 
 def in_ext()
-  ext = 'ext/cloudmarkets/sigar/bindings/ruby'
+  ext = 'ext/cloudmarkets/sigar/'
   Dir.chdir(ext) if File.directory? ext
 end
 
