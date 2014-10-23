@@ -1,6 +1,8 @@
+require 'bundler' 
 require 'rubygems'
 require 'rubygems/package_task'
 require 'rake/testtask'
+require 'rake/extensiontask'
 
 task :default => :test
 
@@ -10,6 +12,16 @@ def in_ext()
   ext = 'ext/cloudmarkets/sigar/bindings/ruby'
   Dir.chdir(ext) if File.directory? ext
 end
+
+desc 'Include bundler helper tasks'  # maybe remove again
+Bundler::GemHelper.install_tasks
+
+desc 'Rake extension task'
+Rake::ExtensionTask.new "sigar" do |ext|
+  ext.lib_dir = "lib/cloudmarkets/sigar"
+  end
+  
+
 
 desc 'Build sigar extension'
 task :build do
