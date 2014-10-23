@@ -21,6 +21,12 @@ require 'rbconfig'
 
 extension_name = 'sigar'
 
+# changed dir of extconf.rb to comply with bundler gem standard structure => adjust path references
+source_basedir = '.'
+include_dir = source_basedir + '/include'
+previous_location = 'bindings/ruby'
+perlmod_dir = 'bindings'
+
 print 'Ruby platform=' + RUBY_PLATFORM + "\n"
 
 case RUBY_PLATFORM
@@ -67,8 +73,8 @@ else
   os = RUBY_PLATFORM
 end
 
-osdir = "../../src/os/#{os}"
-$CPPFLAGS += ' -I../../include' + ' -I' + osdir
+osdir = source_basedir + "/src/os/#{os}"
+$CPPFLAGS += " -I#{include_dir}" + ' -I' + osdir
 $CPPFLAGS += ' -U_FILE_OFFSET_BITS' unless is_win32
 
 if RUBY_VERSION > '1.8.4'
@@ -85,7 +91,7 @@ unless is_win32
     print cmd + "\n"
     system(cmd)
   end
-  Dir["./*.c"].each do |file|
+  Dir["#{previous_location}/*.c"].each do |file|
     if File.lstat(file).symlink?
       print "unlink #{file}\n"
       File.delete(file)
@@ -95,27 +101,27 @@ end
 
 $distcleanfiles = ['rbsigar_generated.rx','sigar_version.c']
 
-system('perl -Mlib=.. -MSigarWrapper -e generate Ruby .')
+system('perl -Mlib='+perlmod_dir+' -MSigarWrapper -e generate Ruby .')
 libname = extension_name + '.' + CONFIG['DLEXT']
 filters =
   'ARCHNAME=' + RUBY_PLATFORM + ' ' +
   'ARCHLIB=' + libname + ' ' +
   'BINNAME=' + libname
 
-system('perl -Mlib=.. -MSigarBuild -e version_file ' + filters)
+system('perl -Mlib='+perlmod_dir+' -MSigarBuild -e version_file ' + filters)
 
 if is_win32
-  system('perl -Mlib=.. -MSigarBuild -e resource_file ' + filters)
-  system('rc /r sigar.rc')
-  $LDFLAGS += ' sigar.res'
-  $distcleanfiles << ['sigar.rc', 'sigar.res']
+  system('perl -Mlib='+perlmod_dir+' -MSigarBuild -e resource_file ' + filters)
+  system('rc /r '+previous_location+'/sigar.rc')
+  $LDFLAGS += ' '+previous_location+'/sigar.res'
+  $distcleanfiles << [previous_location+'/sigar.rc', previous_location+'/sigar.res']
   #do not want dynamic runtime else "MSVCR80.dll was not found"
   $CFLAGS = $CFLAGS.gsub('-MD', '')
 end
 
 #XXX seems mkmf forces basename on srcs
 #XXX should be linking against libsigar anyhow
-(Dir["../../src/*.c"] + Dir["#{osdir}/*.c"] + Dir["#{osdir}/*.cpp"]).each do |file|
+(Dir["#{source_basedir}/src/*.c"] + Dir["#{osdir}/*.c"] + Dir["#{osdir}/*.cpp"]).each do |file|
   cf = File.basename(file)
   print file + ' -> ' + cf + "\n"
   if is_win32
