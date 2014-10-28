@@ -840,9 +840,9 @@ static void Init_rbsigar_version(VALUE rclass)
     RB_SIGAR_DEFINE_CONST_STR("VERSION", sv->version);
 }
 
-void Init_sigar(void)
+void Init_csigar(void)
 {
-    VALUE rclass = rb_define_class("Sigar", rb_cObject);
+    VALUE rclass = rb_define_class("Csigar", rb_cObject);
 
     rb_define_method(rclass, "logger", rb_sigar_logger, 0);
     rb_define_method(rclass, "logger=", rb_sigar_set_logger, 1);
