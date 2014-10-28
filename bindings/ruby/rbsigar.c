@@ -23,6 +23,13 @@
 #include <re.h>
 #endif
 
+#ifdef __linux__
+#include <unistd.h>
+#endif
+#ifdef WIN32
+#include <windows.h>
+#endif
+
 #include <errno.h>
 #include "sigar.h"
 #include "sigar_fileinfo.h"
@@ -423,7 +430,48 @@ static VALUE rb_sigar_loadavg(VALUE obj)
     return rb_sigar_new_doublelist(&loadavg.loadavg[0], 3);
 }
 
+static void mySleep(int sleepMs)
+{
+#ifdef __linux__
+    usleep(sleepMs * 1000);   // usleep takes sleep time in us
+#endif
+#ifdef WIN32
+    Sleep(sleepMs);
+#endif
+}
+
 static VALUE rb_cSigarCpuPerc;
+
+static VALUE rb_sigar_cpu_perc(VALUE obj)
+{
+    SIGAR_GET;
+
+    int status;
+    sigar_t *sigarcpu;
+    sigar_cpu_t cpu1;
+    sigar_cpu_t cpu2;
+    sigar_cpu_perc_t *RETVAL = malloc(sizeof(*RETVAL));
+
+    sigar_open(&sigarcpu);
+    sigar_cpu_get(sigarcpu, &cpu1);
+    sigar_close(sigarcpu);
+
+    // this comes from the pause definition in Sigar.java
+    // no other rational behind the 500 setting
+    mySleep(500);
+
+    sigar_open(&sigarcpu);
+    sigar_cpu_get(sigarcpu, &cpu2);
+    sigar_close(sigarcpu);
+
+    if ((status = sigar_cpu_perc_calculate(&cpu1, &cpu2, RETVAL)) != SIGAR_OK) {
+        free(RETVAL);
+        rb_raise(rb_eArgError, "%s", sigar_strerror(sigar, status));
+        return Qnil;
+    }
+
+    return Data_Wrap_Struct(rb_cSigarCpuPerc, 0, rb_sigar_free, RETVAL);
+}
 
 static VALUE rb_cSigarFileSystem;
 
@@ -867,6 +915,8 @@ void Init_csigar(void)
     rb_define_method(rclass, "proc_env", rb_sigar_proc_env, 1);
     rb_define_method(rclass, "proc_port", rb_sigar_proc_port, 2);
     rb_define_method(rclass, "fqdn", rb_sigar_fqdn, 0);
+
+    rb_define_method(rclass, "cpu_perc", rb_sigar_cpu_perc, 0); 
 
     rb_define_singleton_method(rclass, "new", rb_sigar_new, 0);
     rb_define_singleton_method(rclass, "format_size", rb_sigar_format_size, 1);
