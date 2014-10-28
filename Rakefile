@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'rake/gempackagetask'
+require 'rubygems/package_task'
 require 'rake/testtask'
 
 #so we can: ssh host rake -f $hudson_workspace/sigar/Rakefile
@@ -40,7 +40,7 @@ spec = Gem::Specification.new do |s|
     Dir.glob("src/**/*.in")
 end
 
-Rake::GemPackageTask.new(spec) do |pkg|
+Gem::PackageTask.new(spec) do |pkg|
   pkg.gem_spec = spec
 end
 
