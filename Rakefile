@@ -19,7 +19,7 @@ Bundler::GemHelper.install_tasks
 
 desc 'Rake extension task'
 Rake::ExtensionTask.new "cloudmarkets/sigar" do |ext|
-  ext.lib_dir = "lib/cloudmarkets/sigar"
+  ext.lib_dir = "lib/cloudmarkets"
   end
 
 
