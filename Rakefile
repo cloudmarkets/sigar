@@ -1,6 +1,7 @@
 require 'bundler' 
 require 'rubygems'
 require 'rubygems/package_task'
+require 'rake'
 require 'rake/testtask'
 require 'rake/extensiontask'
 
@@ -17,10 +18,9 @@ desc 'Include bundler helper tasks'  # maybe remove again
 Bundler::GemHelper.install_tasks
 
 desc 'Rake extension task'
-Rake::ExtensionTask.new "sigar" do |ext|
+Rake::ExtensionTask.new "cloudmarkets/sigar" do |ext|
   ext.lib_dir = "lib/cloudmarkets/sigar"
   end
-  
 
 
 desc 'Build sigar extension'
@@ -48,24 +48,24 @@ task :test => [:build] do
   in_ext()
 end
 
-desc 'Clean sigar extension'
-task :clean do
-  in_ext()
-  system(MAKE + ' clean') if File.exists? "Makefile"
-end
-
+#desc 'Clean sigar extension'
+#task :clean do
+#  in_ext()
+#  system(MAKE + ' clean') if File.exists? "Makefile"
+#end
+#
 desc 'Dist Clean sigar extension'
 task :distclean do
   in_ext()
   system(MAKE + ' distclean') if File.exists? "Makefile"
 end
 
-desc 'Run sigar examples (test)'
-task :examples => [:build] do
-  in_ext()
-  Dir["examples/*.rb"].each do |file|
-    cmd = "ruby -I. #{file}"
-    print cmd + "\n"
-    system(cmd)
-  end
-end
+#desc 'Run sigar examples (test)'
+#task :examples => [:build] do
+#  in_ext()
+#  Dir["examples/*.rb"].each do |file|
+#    cmd = "ruby -I. #{file}"
+#    print cmd + "\n"
+#    system(cmd)
+#  end
+#end

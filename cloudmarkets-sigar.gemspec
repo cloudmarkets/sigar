@@ -19,11 +19,13 @@ Gem::Specification.new do |spec|
     `git ls-files -- ext/cloudmarkets/sigar/bindings/ruby/*`.split("\n") +
     Dir.glob("ext/cloudmarkets/sigar/include/*.h") +
     Dir.glob("ext/cloudmarkets/sigar/src/**/*.[ch]") +
-    Dir.glob("ext/cloudmarkets/sigar/src/**/*.in")
+    Dir.glob("ext/cloudmarkets/sigar/src/**/*.in") +
+    Dir.glob("ext/cloudmarkets/sigar/version.properties") +
+    Dir.glob("lib/**/*")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
-  spec.extensions    = 'ext/cloudmarkets/sigar/extconf.rb'  # not standard path, but left for compatibility reasons
+  spec.extensions    = 'ext/cloudmarkets/sigar/extconf.rb'
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"

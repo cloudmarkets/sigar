@@ -26,6 +26,7 @@ source_basedir = '.'
 include_dir = source_basedir + '/include'
 previous_location = 'bindings/ruby'
 perlmod_dir = 'bindings'
+target_dir = 'cloudmarkets/sigar'
 
 print 'Ruby platform=' + RUBY_PLATFORM + "\n"
 
@@ -134,4 +135,4 @@ end
 
 dir_config(extension_name)
 
-create_makefile(extension_name)
+create_makefile(target_dir + '/' + extension_name)

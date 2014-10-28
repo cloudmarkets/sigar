@@ -890,7 +890,8 @@ static void Init_rbsigar_version(VALUE rclass)
 
 void Init_sigar(void)
 {
-    VALUE rclass = rb_define_class("Sigar", rb_cObject);
+	VALUE cm_module = rb_define_module("Cloudmarkets");
+    VALUE rclass = rb_define_class_under(cm_module, "Sigar", rb_cObject);
 
     rb_define_method(rclass, "logger", rb_sigar_logger, 0);
     rb_define_method(rclass, "logger=", rb_sigar_set_logger, 1);

@@ -1,7 +1,6 @@
 require "cloudmarkets/sigar/version"
+require "cloudmarkets/sigar/sigar"
 
 module Cloudmarkets
-  module Sigar
-    # Your code goes here...
-  end
+    # empty, will be filled with Sigar class by Init_sigar C function
 end
