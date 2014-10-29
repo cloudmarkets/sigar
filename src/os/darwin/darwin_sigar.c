@@ -16,6 +16,17 @@
  * limitations under the License.
  */
 
+#ifdef DARWIN
+#include <sys/socket.h>
+#include <sys/fcntl.h>
+#include <mach/thread_info.h>
+#endif
+
+#include "sigar.h"
+#include "sigar_private.h"
+#include "sigar_util.h"
+#include "sigar_os.h"
+
 #include <sys/param.h>
 #include <sys/mount.h>
 #if !(defined(__FreeBSD__) && (__FreeBSD_version >= 800000))
@@ -33,7 +44,6 @@
 #include <mach/mach_port.h>
 #include <mach/task.h>
 #include <mach/thread_act.h>
-#include <mach/thread_info.h>
 #include <mach/vm_map.h>
 #if !defined(HAVE_SHARED_REGION_H) && defined(__MAC_10_5) /* see Availability.h */
 #  define HAVE_SHARED_REGION_H /* suckit autoconf */
@@ -106,11 +116,6 @@
 #endif
 #include <netinet/tcp_var.h>
 #include <netinet/tcp_fsm.h>
-
-#include "sigar.h"
-#include "sigar_private.h"
-#include "sigar_util.h"
-#include "sigar_os.h"
 
 #define NMIB(mib) (sizeof(mib)/sizeof(mib[0]))
 
