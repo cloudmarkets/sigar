@@ -1,17 +1,17 @@
-= Instructions =
-== Creating gem file ==
+# Instructions
+## Creating gem file
 `rake package`
 
 Creates a gem file in pkg/csigar-0.x.x.gem.
 
-== Installing gem file ==
+## Installing gem file
 `gem install pkg/csigar-x.x.x.gem`
 
-== Publishing gem file ==
+## Publishing gem file
 `gem push pkg/csigar-x.x.x.gem`
 
 
-= Docs =
+# Docs
 
 Visit the SIGAR Wiki for documentation, bugs, support, etc.:
 http://sigar.hyperic.com/
