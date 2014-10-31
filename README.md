@@ -7,8 +7,22 @@ Creates a gem file in pkg/csigar-0.x.x.gem.
 ## Installing gem file
 `gem install pkg/csigar-x.x.x.gem`
 
+Installs gem file to local ruby libs.
+
 ## Publishing gem file
 `gem push pkg/csigar-x.x.x.gem`
+
+Pushes gem file to rubygems.org (account required).
+
+## Test using irb
+Start interactive ruby shell:
+`#>irb`
+Require module (must return "true"):
+`require 'csigar'`
+Build instance:
+`sigar = Csigar.new`
+Get test value (should return numeric value):
+`sigar.cpu_perc.wait`
 
 
 # Docs
