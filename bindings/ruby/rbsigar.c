@@ -23,7 +23,7 @@
 #include <re.h>
 #endif
 
-#ifdef __linux__
+#if defined(__linux__) || defined(DARWIN)
 #include <unistd.h>
 #endif
 #ifdef WIN32
@@ -432,7 +432,7 @@ static VALUE rb_sigar_loadavg(VALUE obj)
 
 static void mySleep(int sleepMs)
 {
-#ifdef __linux__
+#if defined(__linux__) || defined(DARWIN)
     usleep(sleepMs * 1000);   // usleep takes sleep time in us
 #endif
 #ifdef WIN32
