@@ -22,7 +22,7 @@ spec = Gem::Specification.new do |s|
   s.name = GEM
 #  s.version = props['version.major'] + '.' + props['version.minor'] + '.' + props['version.maint']
 #  '0.7.x' until the sigar-1.7.0 release
-  s.version = '0' + '.' + props['version.minor'] + '.' + '4'
+  s.version = '0' + '.' + props['version.minor'] + '.' + '5'
   s.summary = props['project.summary']
   s.description = s.summary
   s.author = props['project.author']
