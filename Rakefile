@@ -20,16 +20,15 @@ MAKE = (/mswin/ =~ RUBY_PLATFORM) ? 'nmake' : 'make'
 
 spec = Gem::Specification.new do |s|
   s.name = GEM
-#  s.version = props['version.major'] + '.' + props['version.minor'] + '.' + props['version.maint']
-#  '0.7.x' until the sigar-1.7.0 release
-  s.version = '0' + '.' + props['version.minor'] + '.' + '5'
+  s.version = props['version.major'] + '.' + props['version.minor'] + '.' + props['version.maint']
   s.summary = props['project.summary']
-  s.description = s.summary
+  s.description = props['project.description']
   s.author = props['project.author']
   s.email = props['project.email']
   s.homepage = props['project.homepage']
   s.platform = Gem::Platform::RUBY
   s.has_rdoc = false
+  s.required_ruby_version = '~> 2.0'
   s.extensions = 'bindings/ruby/extconf.rb'
   s.files =
     %w(LICENSE NOTICE README.md Rakefile version.properties) +
